@@ -16,6 +16,8 @@ class Game
       # Step 2: Draw scoreboard
       update_ui
 
+     @guesser.get_secret_word_status(@chooser.secret_word_status)
+
       # Step 3: Guess a letter
       @chooser.check_guess(@guesser.guess)
 

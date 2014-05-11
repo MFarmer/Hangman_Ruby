@@ -6,16 +6,19 @@ class HumanPlayer
 
   def initialize
     @guessed_letter = []
+    @word_status = []
   end
 
   def pick_secret_word
     print "What is the length of your chosen word?: "
     input = gets.chomp.to_i
-    
+    input.times do
+      @word_status << {:letter => '', :guessed => false}
+    end
   end
 
-  def receive_secret_length
-
+  def secret_word_status
+    @word_status.map { |el| el[:guessed] ? el[:letter] : nil }
   end
 
   def guess
@@ -32,11 +35,19 @@ class HumanPlayer
     return @guessed_letter.last
   end
 
-  def check_guess
+  def check_guess(letter)
 
+    puts "Computer guesses '#{letter}'"
+    print "Does your word contain '#{letter}'?: "
+    response = gets.chomp
+
+    if response == 'y'
+      print "What indices contain this letter?: "
+      gets.chomp.split(' ').join.split('').map { |el| el.to_i }.each do |el|
+        @word_status[el][:letter] = letter
+        @word_status[el][:guessed] = true
+      end
+    end
   end
 
-  def handle_guess_response
-
-  end
 end
